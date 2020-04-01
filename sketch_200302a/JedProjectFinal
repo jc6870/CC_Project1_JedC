@@ -1,0 +1,73 @@
+/*
+Deflated, in the there will be balls that drop that get more and more deflated (smaller). 
+The bounce height will of course get smaller on each consecutive bounce
+until the disappearance. Two different face states: Happy and sad.
+Balls start out ‘happy’ then turn sad right before disappearing.
+Direction is based on mouse direction.
+
+I asked the TA for help. Also, I commented the wrong stuff because it was a while since I looked at the code. Should be right now.
+*/
+
+let mode = 0 //set mode to 0, this will be the difference between 'happy' and 'sad'
+class Circle{
+	constructor(p,v,a,r){
+		this.p = p
+		this.v = v
+		this.a = a
+		this.type="smile" //start off smiling.
+		this.r = r
+		this.alive = true
+	}
+	draw(){
+		// ellipse(this.p.x,this.p.y,this.r)
+		textSize(this.r) //we set the size of the circle to text (emojis)
+		if (this.type=="smile"){ //two different states for the faces as they get smaller.
+			text("🙂",this.p.x,this.p.y) //we show happy
+		}else{
+			text("😔",this.p.x,this.p.y) //we show sad
+		}
+	}
+	update(){
+		this.p.add(this.v)
+		this.v.add(this.a)
+		if (this.p.y>height){ //When the balls hit the ground
+			this.v.y = -this.v.y //they bounce off
+		}
+		if (mode==0){
+			this.r*=0.99 //we set the value of r to 0.99 and decrease it the size of the balls incrementally by times 0.99. 
+		}
+		if (this.r<=50){ //if faces get below half, turn sad.
+			this.type="sad"
+		}
+		if (this.r<=5){ //if the faces get too small, they disappear.
+			this.alive=false //circles disappear
+		}
+	}
+}
+let circles = [] //we set an array for the faces
+function setup() {
+	createCanvas(windowWidth, windowHeight);
+	background(100);
+	
+}
+
+function draw() {
+	background(0,200);
+	if (mouseIsPressed){ //when we press mouse...
+		let temp = new Circle( //we draw circle objects
+			createVector(mouseX,mouseY), //a vector in the direction of mouse when we click mouse
+			createVector(random(-3,3),random(-3,3)).add( //it kinda gives the 'jittering' effect as the circles don't spawn in the same coordinates all the time
+				createVector(mouseX-pmouseX,mouseY-pmouseY).mult(0.3) //we make the circles fall over time
+			)
+			,
+			createVector(0,1),120)
+		circles.push(temp) //push these circles into the circles array
+	}
+	for (let circle of circles){ //constantly update and draw the circles in the array
+		circle.update()
+		circle.draw()
+	}
+	circles = circles.filter(circle => circle.alive) //any dead circles are taken off
+	print(circles.length)
+	// ellipse(mouseX, mouseY, 20, 20);
+}
