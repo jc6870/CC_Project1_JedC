@@ -61,7 +61,10 @@ class DeflatingCircles{
  line(mouseX+(xCoord*3), mouseY-(yCoord*4), mouseX+(xCoord*5), mouseY-yCoord);
   
  arc(mouseX, mouseY+(yCoord*2), xWidth/2, yHeight/2, 0, PI, CHORD); //mouth
+ 
+ 
  }
+ 
   
     
 
