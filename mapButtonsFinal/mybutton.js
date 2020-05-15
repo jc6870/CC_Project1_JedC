@@ -4,7 +4,7 @@ function setup() {
   radio2.option(' China   ', 1);
   //radio2.html('<br>');
   radio2.option(' France   ', 2);
-  radio2.option(' Germany  ', 3);
+  radio2.option(' Russia  ', 3);
   radio2.option(' Japan  ', 4);
   radio2.option(' USA  ', 5);
 }
