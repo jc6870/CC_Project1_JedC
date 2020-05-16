@@ -80,8 +80,7 @@ function changeCountry(){
   v1.attribute("src",currentSet[0])
   v2.attribute("src",currentSet[1])
   v3.attribute("src",currentSet[2])
-  v4.attribute("src",currentSet[3])
-  v5.attribute("src",currentSet[4])
+
   
   vidLoad()
   
